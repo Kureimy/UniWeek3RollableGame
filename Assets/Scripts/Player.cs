@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public int jumpStrength = 1;
     private int playerJumps = 2;
     private bool onGround = false;
+    private bool inspeedzone = false;
 
     private Vector2 inputMovement;
     private Rigidbody rb;
@@ -60,6 +61,26 @@ public class Player : MonoBehaviour
         if (health <= 10)
         { 
             health += healamount;
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "SpeedZone")
+        {
+            inspeedzone = true;
+            Debug.Log(inspeedzone);
+            speed *= 2;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "SpeedZone")
+        {
+            inspeedzone = false;
+            Debug.Log(inspeedzone);
+            speed = 5;
         }
     }
 
